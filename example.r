@@ -88,11 +88,15 @@ read_file <- function(file)
     pattern <- ".csv"
     path <- str_remove_all(file, pattern)
 
+    # Remove the path to the experimental results for separating
+    pattern <- source
+    path <- str_remove_all(path, pattern)
+
     # Create a column with the file path to extract the method and problem
     data <- mutate(data, path = path)
 
     sep <- .Platform$file.sep
-    columns <- c("results", "algorithm", "problem", "method")
+    columns <- c(NA, "algorithm", "problem", "method")
     data <- separate(data, path, columns, sep = sep)
 
     data <- select(data, problem, method, output)
@@ -156,14 +160,14 @@ problems <- strsplit(problems, split)
 methods <- unlist(methods)
 problems <- unlist(problems)
 
-paths <- file.path("results", "*", "*", "*.csv")
+paths <- file.path(source, "*", "*", "*.csv")
 paths <- Sys.glob(paths)
 
 # Generate the regular expression to filter the methods and problems
 collapse <- "|"
 problems <- paste0("(", problems, collapse = collapse, ")")
 methods <- paste0("(", methods, collapse = collapse, ")")
-pattern <- file.path("results", ".*", problems, methods)
+pattern <- file.path(source, ".*", problems, methods)
 
 value <- TRUE
 paths <- grep(pattern, paths, value = value)
@@ -177,7 +181,7 @@ functions <- list(mean = "mean", sd = "sd")
 data <- group_by(data, method, problem)
 data <- summarise_all(data, functions)
 
-# Format the numeric outputs to use a fixed width for the values
+# Format the numeric outputs to use a fixed width for all the values
 data <- mutate(data, across(where(is.numeric), format_outputs))
 
 destination <- file.path(destination, output)

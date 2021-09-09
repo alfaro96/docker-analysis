@@ -1,5 +1,5 @@
-# Workflow to build and push a Docker image to Docker Hub
-name: Continuous deployment images
+# Workflow to build a Docker image and push to Docker Hub
+name: Docker image builder
 
 on:
   push:
@@ -7,11 +7,11 @@ on:
       - master
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout docker-analysis
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Login Docker Hub

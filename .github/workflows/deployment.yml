@@ -1,0 +1,28 @@
+# Workflow to build and push a Docker image to Docker Hub
+name: Continuous deployment images
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout docker-analysis
+        uses: actions/checkout@v2
+
+      - name: Login Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          file: Dockerfile
+          push: true
+          tags: alfaro96/analysis

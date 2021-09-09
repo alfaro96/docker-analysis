@@ -1,9 +1,7 @@
-FROM r-base
+FROM jupyter/datascience-notebook
 
-# Install the libraries to format, export and analyze the experimental results
-RUN install.r argparser dplyr tidyr tibble readr xtable exreport
+COPY install.r format.ipynb analysis.ipynb execute.bash /home/jovyan/
 
-# Copy the files to format, export and analyze the experimental results
-COPY . /usr/local/src
+RUN Rscript install.r argparser exreport
 
-ENTRYPOINT ["Rscript"]
+ENTRYPOINT ["bash", "execute.bash"]

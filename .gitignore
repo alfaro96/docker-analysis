@@ -1,2 +1,11 @@
+# Unit tests and coverage reports
+.cache
+
+# Jupyter notebook
+.config
+.ipynb_checkpoints
+.ipython
+.local
+
 # General files
 .DS_Store

@@ -1,0 +1,14 @@
+services:
+  # Format and export the experimental results
+  format:
+    image: alfaro96/analysis
+    ports: ["8888:8888"]
+    volumes: [$PWD:/home/jovyan/work]
+    entrypoint: ["bash", "execute.bash", "format"]
+
+  # Analyze the experimental results and generate a report
+  analysis:
+    image: alfaro96/analysis
+    ports: ["8888:8888"]
+    volumes: [$PWD:/home/jovyan/work]
+    entrypoint: ["bash", "execute.bash", "analysis"]

@@ -29,7 +29,7 @@ After building or pulling the `alfaro96/analysis` image, you can use `docker run
 ---
 
 ```bash
-docker run -p 8888:8888 -v $PWD:/home/jovyan/work alfaro96/analysis format --source $SOURCE --destination $DESTINATION --output $OUTPUT --digits $DIGITS --methods $METHODS --datasets $DATASETS
+docker run -p 8888:8888 -v $PWD:/home/jovyan/work --rm alfaro96/analysis format --source $SOURCE --destination $DESTINATION --output $OUTPUT --digits $DIGITS --methods $METHODS --datasets $DATASETS
 ```
 
 or use `docker-compose run`:
@@ -41,7 +41,7 @@ docker-compose run format --source $SOURCE --destination $DESTINATION --output $
 On the other hand, to analyze the experimental results and generate a report:
 
 ```bash
-docker run -p 8888:8888 -v $PWD:/home/jovyan/work alfaro96/analysis analysis --source $SOURCE --destination $DESTINATION --output $OUTPUT --rank $RANK --digits $DIGITS --title $TITLE --alpha $ALPHA --methods $METHODS --problems $PROBLEMS
+docker run -p 8888:8888 -v $PWD:/home/jovyan/work --rm alfaro96/analysis analysis --source $SOURCE --destination $DESTINATION --output $OUTPUT --rank $RANK --digits $DIGITS --title $TITLE --alpha $ALPHA --methods $METHODS --problems $PROBLEMS
 ```
 
 or:
